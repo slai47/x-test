@@ -10,7 +10,7 @@ import android.widget.Toast
 import arms.slai.com.xtest.interfaces.IMainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 /**
- * Don't know if I need to document lifecycle methods. I figure its ok
+ * Don't know if I need to document lifecycle methods. I figure its ok not to sense its self explanatory
  */
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         setupHello()
     }
-    
+
     // Setup the clickable part of hello in hello world for task 1
     private fun setupHello() {
         val text = "Hello world!"

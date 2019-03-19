@@ -5,7 +5,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.work.*
 import arms.slai.com.xtest.interfaces.IMainPresenter
+import arms.slai.com.xtest.work.WorkBuilder
 
 class MainPresenter(var activity: MainActivity?) : IMainPresenter {
 
@@ -16,10 +18,11 @@ class MainPresenter(var activity: MainActivity?) : IMainPresenter {
         val permissionResult = checkLocationPermissionAndRequest()
         if(permissionResult == PermissionResult.GRANTED || permissionResult == PermissionResult.LOWER_API){
             // Schedule work
-            val min = 1000 * 60 // 1s * 60
-            val delay : Int = if(BuildConfig.BUILD_TYPE == "debug") min else (min * 60)
-
-
+            val debug = BuildConfig.BUILD_TYPE != "debug"
+            WorkManager.getInstance().enqueue(
+                if(debug) WorkBuilder.buildOneTimeJob()
+                else WorkBuilder.buildPeriodicJob()
+            )
             // Toast out on success
             Toast.makeText(activity!!, "Task 2 done! Work scheduled", Toast.LENGTH_LONG).show()
         }
@@ -40,8 +43,6 @@ class MainPresenter(var activity: MainActivity?) : IMainPresenter {
             } else // We have permission
                 PermissionResult.GRANTED
     }
-
-
 
     // handle the permissions from activity onRequestPermissionResult
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray){
