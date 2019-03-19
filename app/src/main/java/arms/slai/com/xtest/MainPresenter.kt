@@ -3,7 +3,6 @@ package arms.slai.com.xtest
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.work.*
 import arms.slai.com.xtest.interfaces.IMainPresenter
@@ -24,8 +23,6 @@ class MainPresenter(var activity: MainActivity?) : IMainPresenter {
                 if(debug) WorkBuilder.buildOneTimeJob()
                 else WorkBuilder.buildPeriodicJob()
             )
-            // Toast out on success
-            Toast.makeText(activity!!, "Task 2 done! Work scheduled", Toast.LENGTH_LONG).show()
         }
     }
 
