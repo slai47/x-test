@@ -3,6 +3,7 @@ package arms.slai.com.xtest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         setupHello()
     }
+    
     // Setup the clickable part of hello in hello world for task 1
     private fun setupHello() {
         val text = "Hello world!"
@@ -35,8 +37,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         val builder = SpannableStringBuilder(text)
-        builder.setSpan(clickable,0, 4, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(clickable,0, 5, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
         id_text_view.text = builder
+        id_text_view.movementMethod = LinkMovementMethod.getInstance()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
