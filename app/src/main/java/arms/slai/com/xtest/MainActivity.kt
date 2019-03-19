@@ -9,9 +9,8 @@ import android.view.View
 import android.widget.Toast
 import arms.slai.com.xtest.interfaces.IMainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
-/**
- * Don't know if I need to document lifecycle methods. I figure its ok not to sense its self explanatory
- */
+
+
 class MainActivity : AppCompatActivity() {
 
     val presenter : IMainPresenter = MainPresenter(this)
@@ -21,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    // Activity is on screen
     override fun onResume() {
         super.onResume()
         setupHello()
@@ -42,11 +42,13 @@ class MainActivity : AppCompatActivity() {
         id_text_view.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    // Respond to permissions
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         presenter.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    // Activity is destroyed, remove references and clean up
     override fun onDestroy() {
         super.onDestroy()
         presenter.dispose()

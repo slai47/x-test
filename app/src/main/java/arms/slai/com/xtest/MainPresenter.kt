@@ -16,6 +16,7 @@ class MainPresenter(var activity: MainActivity?) : IMainPresenter {
     // single threw put method to check for location work and setup if permission is granted
     override fun setupLocationWork() {
         val permissionResult = checkLocationPermissionAndRequest()
+        // if permissions are granted or not needed, fire away
         if(permissionResult == PermissionResult.GRANTED || permissionResult == PermissionResult.LOWER_API){
             // Schedule work
             val debug = BuildConfig.BUILD_TYPE != "debug"
@@ -31,6 +32,7 @@ class MainPresenter(var activity: MainActivity?) : IMainPresenter {
     // check for location permission, request if needed
     override fun checkLocationPermissionAndRequest() : PermissionResult {
         return if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // only request permissions when higher or equal to than M
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     // Docs don't mention if dialog needs to be put up so opting out of it.
                     activity!!.requestPermissions(
